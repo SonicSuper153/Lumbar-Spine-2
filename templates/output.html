@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumbar Spine Detection - Result</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-white max-w-lg w-full text-center">
+        <h1 class="text-3xl font-bold mb-6">Lumbar Spine Detection Result</h1>
+        
+        <!-- Display the image -->
+        <div class="mb-6">
+            <img src="{{ url_for('static', filename='input.jpg') }}" alt="Uploaded Image" class="mx-auto rounded-md shadow-lg max-w-full h-auto">
+        </div>
+        
+        <!-- Display the result text -->
+        <div class="text-lg">
+            <p>Result :- {{ result }}</p>
+        </div>
+        
+        <!-- Button to go back to upload form -->
+        <div class="w-full flex justify-end">
+          <a href="/" class="mt-6 text-sm inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md">Upload Another Image</a>
+        </div>
+    </div>
+</body>
+</html>
