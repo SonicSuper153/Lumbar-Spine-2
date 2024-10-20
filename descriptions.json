@@ -1,0 +1,78 @@
+[
+    {
+        "name": "LSD",
+        "full_name": "Lumbar Spine Deformity",
+        "description": "This class represents various deformities of the lumbar spine, including conditions such as scoliosis, kyphosis, and lordosis. Detecting these deformities is crucial for diagnosis, treatment planning, and monitoring changes over time.",
+        "features": [
+            {
+                "feature_name": "Geometric Measurements",
+                "description": "Angles between vertebrae and curvature measurements to assess the degree of deformity."
+            },
+            {
+                "feature_name": "3D Morphology",
+                "description": "Use of 3D models to visualize the shape and alignment of lumbar vertebrae."
+            },
+            {
+                "feature_name": "Visual Markers",
+                "description": "Identification of anomalies in vertebral shapes or alignment using imaging techniques."
+            }
+        ]
+    },
+    {
+        "name": "OSF",
+        "full_name": "Osteophyte Formation",
+        "description": "This class pertains to the presence of osteophytes (bone spurs) that develop along the edges of lumbar vertebrae, often resulting from joint degeneration or inflammation. Identifying osteophyte formation is important for diagnosing osteoarthritis and related conditions.",
+        "features": [
+            {
+                "feature_name": "Image Analysis",
+                "description": "Detecting bone spurs using imaging modalities like X-rays, MRI, or CT scans."
+            },
+            {
+                "feature_name": "Textural Analysis",
+                "description": "Analyzing the texture around vertebrae for changes indicative of osteophyte presence."
+            },
+            {
+                "feature_name": "Size and Location",
+                "description": "Measuring the size of osteophytes and their relative location to other spinal structures."
+            }
+        ]
+    },
+    {
+        "name": "SPIDER",
+        "full_name": "Specific Type of Spine Pathology",
+        "description": "This class identifies a specific spinal condition characterized by certain features, potentially based on its shape or appearance in imaging. Accurate detection of this pathology allows for targeted interventions.",
+        "features": [
+            {
+                "feature_name": "Pattern Recognition",
+                "description": "Identifying characteristic patterns in images that correspond to the specific spinal condition."
+            },
+            {
+                "feature_name": "Segmentation",
+                "description": "Isolating the pathology from surrounding tissues for detailed analysis."
+            },
+            {
+                "feature_name": "Symptom Correlation",
+                "description": "Linking imaging findings to clinical symptoms experienced by patients."
+            }
+        ]
+    },
+    {
+        "name": "TSEG",
+        "full_name": "Thoracolumbar Segment",
+        "description": "This class refers to the transition area between the thoracic and lumbar spine, an important region that experiences significant stress and injury. Assessing the thoracolumbar segment is essential for understanding spinal stability and mobility.",
+        "features": [
+            {
+                "feature_name": "Structural Integrity",
+                "description": "Evaluating the alignment and integrity of vertebrae in the thoracolumbar segment."
+            },
+            {
+                "feature_name": "Motion Analysis",
+                "description": "Analyzing motion in this segment using dynamic imaging techniques."
+            },
+            {
+                "feature_name": "Pathological Changes",
+                "description": "Identifying degenerative changes or injuries within the thoracolumbar segment."
+            }
+        ]
+    }
+]

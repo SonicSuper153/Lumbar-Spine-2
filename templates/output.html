@@ -1,34 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lumbar Spine Detection - Result</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="{{url_for('static',filename=" styles.css")}}" rel="stylesheet">
     <style>
+        .bgLeft,
         body {
             background: linear-gradient(135deg, #1e3a8a, #0ea5e9);
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center">
-    <div class="bg-gray-800 p-8 rounded-lg shadow-lg text-white max-w-lg w-full text-center">
+
+<body class="min-h-screen flex items-center justify-center grid grid-cols-2">
+    <div class="bgLeft w-full h-full p-8 text-white text-center flex flex-col justify-evenly">
         <h1 class="text-3xl font-bold mb-6">Lumbar Spine Detection Result</h1>
-        
-        <!-- Display the image -->
         <div class="mb-6">
-            <img src="{{ url_for('static', filename='input.jpg') }}" alt="Uploaded Image" class="mx-auto rounded-md shadow-lg max-w-full h-auto">
+            <img src="{{ url_for('static', filename='input.jpg') }}" alt="Uploaded Image"
+                class="mx-auto rounded-md shadow-lg max-w-full h-auto">
         </div>
-        
-        <!-- Display the result text -->
-        <div class="text-lg">
-            <p>Result :- {{ result }}</p>
-        </div>
-        
-        <!-- Button to go back to upload form -->
-        <div class="w-full flex justify-end">
-          <a href="/" class="mt-6 text-sm inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md">Upload Another Image</a>
+        <div class="w-full flex justify-start">
+            <a href="/"
+                class="mt-6 text-sm inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-md">Upload
+                Another Image</a>
         </div>
     </div>
+    <div id="classes" class="flex loading-bar w-full h-full p-20"></div>
 </body>
+
+<script>
+    const data = JSON.parse('{{ result | safe }}');
+    const classesDiv = document.getElementById('classes');
+    const classDiv = document.createElement('div');
+    classDiv.innerHTML = `<h2 class="text-center text-5xl font-bold text-white p-5 leading-relaxed">${data.full_name} (${data.name})</h2>
+    <p class="text-md text-white text-justify p-5">${data.description}</p>`;
+    const featuresList = document.createElement('ul');
+    featuresList.classList = "flex flex-col justify-center py-5 gap-8";
+    data.features.forEach(feature => {
+        const featureItem = document.createElement('li');
+        featureItem.classList = "text-white px-5 text-justify leading-relaxed";
+        featureItem.innerHTML = `<h3 class="font-bold">${feature.feature_name}</h3><p class="text-md pl-5">${feature.description}</p>`;
+        featuresList.appendChild(featureItem);
+    });
+    classDiv.appendChild(featuresList);
+    classesDiv.appendChild(classDiv);
+    classesDiv.classList.remove("loading-bar");
+</script>
 </html>

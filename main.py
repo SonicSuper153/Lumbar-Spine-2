@@ -4,13 +4,22 @@ from torchvision import transforms
 import torchvision
 from torch import nn
 import torch.nn.functional as F
+import json
+# torch.set_num_threads(1)
+
+with open("descriptions.json",'r') as json_file:
+    descriptions = json.load(json_file)
+    
 
 from flask import Flask, request, render_template
 app = Flask(__name__)
 
 
 weights = torchvision.models.EfficientNet_B0_Weights.DEFAULT
+# torchvision.models.efficientnet_b0(pretrained=False)
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
+
 class_names = ['processed_lsd_jpgs',
  'processed_osf_jpgs',
  'processed_spider_jpgs',
@@ -27,7 +36,7 @@ model.classifier = torch.nn.Sequential(
               out_features=len(class_names),
               bias=True).to(device))
 
-model.load_state_dict(torch.load('model_weights.pth',weights_only=True))
+model.load_state_dict(torch.load('model_weights.pth'))
 
 
 model2 = torchvision.models.efficientnet_b0(weights=weights).to(device)
@@ -40,10 +49,10 @@ model2.classifier = torch.nn.Sequential(
               out_features=2,
               bias=True).to(device))
 
-model2.load_state_dict(torch.load('model_Spine_Or_No.pth',weights_only=True))
+model2.load_state_dict(torch.load('model_Spine_Or_No.pth'))
 
 
-def predict_image_class(image_path, model, class_names, device='cpu'):
+def predict_image_class(image_path, model, device='cpu'):
     preprocess = transforms.Compose([
         transforms.Resize(256),
         transforms.CenterCrop(224),
@@ -64,9 +73,7 @@ def predict_image_class(image_path, model, class_names, device='cpu'):
 
         _, predicted_idx = torch.max(output, 1)
 
-    predicted_class = class_names[predicted_idx.item()]
-
-    return predicted_class
+    return descriptions[predicted_idx.item()]
 
 def predict_image_class2(image_path, model ,device='cpu'):
     preprocess = transforms.Compose([
@@ -104,6 +111,6 @@ def predict():
   file.save("static/input.jpg")
   if(predict_image_class2('static/input.jpg', model2, device='cpu')[0] == 0):
       return render_template("error.html")
-  return render_template("output.html", result=predict_image_class('static/input.jpg', model,class_names, device='cpu'))
+  return render_template("output.html", result=json.dumps(predict_image_class('static/input.jpg', model, device='cpu')))
 
-app.run()
+app.run(debug=True)
